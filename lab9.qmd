@@ -40,10 +40,12 @@ penguins |>
   
 ```
 
-
-# Tiles and Tess
+# Generative Art
 
 ```{r}
+#| label: iterated-function-system
+
+# function to generated data using iterated systems
 unboxy <- function(iterations, layers) {
   
   coeffs <- array(
@@ -74,14 +76,25 @@ unboxy <- function(iterations, layers) {
     return(point)
   }
   
-  points <- accumulate(1:iterations, update, .init = point0)
+  points <- purrr::accumulate(1:iterations, update, .init = point0)
   points <- matrix(unlist(points), ncol = 4, byrow = TRUE)
-  points <- as_tibble(as.data.frame(points)) 
-  names(points) <- c("x", "y", "val", "n")
+  points <- tibble::as_tibble(as.data.frame(points)) 
+  names(points) <- c("x", "y", "val", "size")
   return(points)
 }
+
 ```
 
+```{r}
+#| label: palette-function
+
+# function to randomly sample a palette from ggthemes
+sample_canva <- function(seed = NULL, n = 4) {
+  if(!is.null(seed)) set.seed(seed)
+  sample(ggthemes::canva_palettes, 1)[[1]] |>
+    (\(x) colorRampPalette(x)(n))()  
+}
+```
 
 ```{r}
 #| label: generate-data
@@ -98,19 +111,6 @@ bg_dat <- tibble::tibble(
   val = x/2
 )
 
-```
-
-
-```{r}
-sample_canva <- function(seed = NULL, n = 4) {
-  if(!is.null(seed)) set.seed(seed)
-  sample(ggthemes::canva_palettes, 1)[[1]] |>
-    (\(x) colorRampPalette(x)(n))()  
-}
-```
-
-```{r}
-show_col(sample_canva(seed = 5, n = 5))
 ```
 
 ```{r}
@@ -140,4 +140,10 @@ ggplot(dat, aes(x, y, fill = val)) +
     expand = -.005,
     fill = "grey"
   )
+```
+
+
+```{r}
+#| label: show-palette
+scales::show_col(sample_canva(seed = 5, n = 5))
 ```
