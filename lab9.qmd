@@ -40,6 +40,20 @@ penguins |>
   
 ```
 
+#### A Penguin's Dilemma, 2024
+
+###### *Katherine Chan*
+
+###### *ggplot geometries on canvas*
+
+Penguins inhabit some of the most rapidly changing living conditions on Earth due to climate change. The adélie penguin (Pygoscelis adeliae), chinstrap penguin (Pygoscelis antarctica), and gentoo penguin (Pygoscelis papua) all inhabit land on or near the Antactic Peninsula. As their homeland melts piece by piece, they are forced to adapt to changing environmental patterns, in the ocean and on land. With an unconventional use of coordinate systems and geometries, Chan represents both the fragile Antarctic ecosystem and everyday obstacles that penguins take to ensure their survival. The circular patterns elicit the dizzying reality that penguins face today, while the careful use of color provides perspective deep from the heart of Antarctica.
+
+------------------------------------------------------------------------
+
+Code choices:
+
+Using the `palmerpenguins` dataset, I use bill length and body mass to plot points on a 2x2 graph. The `coord_polar` function transforms the piece from the standard Cartesian coordinate system, where points are plotted based on horizontal and vertical distance, to a system where points are plotted based on angle and radius - causing a circular shape. I set the theme to "void" to remove gridlines and background color. I also used the color palette, entitled "PuBuGn", to use colors reminiscent of a wintery, snowy atmosphere; colors, which represent the island each penguin inhabits, tend to change as radius increases. I set the `geom_point` as `shape = 8` to create the snowflake-like shape. Meanwhile, I used `geom_spoke` to create the longer, curved lines. Finally, I hid the legends in both geometries, which would otherwise detract from the artwork.
+
 # Generative Art
 
 ```{r}
