@@ -267,3 +267,60 @@ mil <- 10000
 unboxer_base(3 * mil, layers = 3, seed = 7) |> 
   unbox_art(seed = 198, size = .1)
 ```
+
+```{r}
+set.seed(4)
+# Number of points on the circle
+num_points <- 100
+
+# Function to generate circular shapes
+generate_circle <- function(num_points) {
+  angle <- seq(0, 2 * pi, length.out = num_points + 1)
+  x <- cos(angle)[-1]
+  y <- sin(angle)[-1]
+  data.frame(x = x, y = y)
+}
+
+# Create the circular shape
+circle_points <- generate_circle(num_points)
+
+# Chaos Game variant functions for circular shapes
+funcs <- list(
+  function(p) p + circle_points[sample(num_points, 1), ] / 2
+)
+
+# Chaos Game function
+chaos_game <- function(funcs, start, n) {
+  # Initialize the point sequence
+  points <- vector("list", length = n + 1)
+  points[[1]] <- start
+  
+  # Iterate through each step
+  for (i in 1:n) {
+    
+    # Sample an index randomly from the list
+    random_index <- sample(length(funcs), 1)
+    
+    # Get the randomly sampled variant function from the list
+    rand_func <- funcs[[random_index]]
+    
+    # Apply the chosen function to the last point
+    points[[i + 1]] <- rand_func(points[[i]])
+  }
+  
+  # Combine the points into a data frame
+  do.call(rbind, points)
+}
+
+# Set the number of iterations
+n <- 10000
+
+# Perform the chaos game
+result <- chaos_game(funcs, c(0, 0), n)
+
+# Plot the result
+ggplot(result, aes(x, y)) +
+  geom_point(color = "blue", size = 0.1) +
+  theme_void()
+
+```
