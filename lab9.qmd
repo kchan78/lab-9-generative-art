@@ -17,27 +17,6 @@ library(deldir)
 
 
 ```{r}
-mpg |>
-  ggplot(aes(displ, hwy, colour = drv)) + 
-  geom_point()
-
-mpg |>
-  ggplot(aes(displ, hwy, colour = drv, size = cyl)) + 
-  geom_point(show.legend = FALSE) + 
-  theme_void() + 
-  scale_color_brewer()
-
-mpg |>
-  ggplot(aes(displ, hwy, colour = drv)) + 
-  geom_point(show.legend = FALSE, size = 4) + 
-  geom_point(show.legend = FALSE, size = 1, colour = "#222222") + 
-  coord_polar() + 
-  theme_void() + 
-  scale_color_brewer()
-```
-
-
-```{r}
 #| warning: FALSE
 mpg |> 
   ggplot(aes(displ, hwy, color = model)) +
