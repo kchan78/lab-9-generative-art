@@ -6,12 +6,15 @@ editor: visual
 ---
 
 ```{r}
-library(dplyr)
+#| label: library-loads
+#| message: FALSE
+
 library(ggplot2)
-library(tibble)
-library(scales)
 library(ggthemes)
+library(ggforce)
+library(deldir)
 ```
+
 
 ```{r}
 mpg |>
@@ -138,23 +141,6 @@ ggplot(
 ```
 
 # Tiles and Tess
-```{r}
-library(dplyr)
-library(tibble)
-library(ggplot2)
-library(ggforce)
-library(deldir)
-library(ggthemes)
-#library(voronoise)
-library(tictoc)
-#library(ambient)
-library(purrr)
-library(tidyr)
-library(stringr)
-library(truchet)
-library(sf)
-```
-
 
 ```{r}
 unboxy <- function(iterations, layers) {
