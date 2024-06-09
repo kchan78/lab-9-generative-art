@@ -156,8 +156,23 @@ ggplot(dat, aes(x, y, fill = val)) +
   )
 ```
 
+#### Shatter, 2024
+
+###### *Katherine Chan*
+
+###### *ggforce geometries on canvas*
+
+In a modern and mesmerizing tesselation, the artist portrays a brightened twist to the otherwise somber experience of breaking. This artwork reimagines this action and feeling as cathardic happening, interwoven with intricate patterns. Amidst the chaos of the kaleidoscope of shapes lies a carefully balanced and precise mathematical structure. Muted, soft, yet calming colors adds an introspective element to the piece. All things in the universe were created, yet all things in the universe break down. "Shatter" invites you to contemplate the reality, complexity, and beauty in this intriguing truth.
+
+------------------------------------------------------------------------
+
+Code choices:
+
+Based on the "Unboxing system" code source provided by R-tist Danielle Navarro, I implemented an iterated function system. I added an additional function to update the generated data points such that an additional column could be created. The primary base uses `theme_void` to provide a clean, minimalist canvas without the distraction of background elements. Using the `sample_canva()` function to randomly sample a color palette from `ggthemes`, I settled on color scheme that I found aesthetically pleasing, with hex values shown below here:
 
 ```{r}
 #| label: show-palette
 scales::show_col(sample_canva(seed = 5, n = 5))
 ```
+
+When generating data, I set the number of iterations to 1000 for the "primary layer" (the bottom, colored layer) to create 1000 data points to be made into Voronoi tiles and 5000 points to create the small, fragmented Voronoi tiles for the texture layer (the top, gray layer). In the primary layer, I allowed the sizes of the tiles to change based on values from the iterated function system and adjusted the size appropriately to fit the grid size with `abs(size)/4`. In between tiles, I added a white lining as negative space. For the texture layer, I adjusted the radius, size, maximum radius, and expansion to create small fragment-like tile tesselations. I selected a solid gray color to soften the effect of this layer, creating a dusty finish. Finally, I hid the legends in both geometries, which would otherwise detract from the artwork.
