@@ -5,6 +5,8 @@ format: html
 editor: visual
 ---
 
+## Set Up
+
 ```{r}
 #| label: library-loads
 #| message: FALSE
@@ -15,16 +17,26 @@ library(ggforce)
 library(deldir)
 ```
 
+# Art with Ordinary Plotting Functions
 
 ```{r}
+#| label: penguins
+
+# load in palmer penguins dataset
+penguins <- palmerpenguins::penguins
+```
+
+```{r}
+#| label: plot-penguins
 #| warning: FALSE
-mpg |> 
-  ggplot(aes(displ, hwy, color = model)) +
+
+penguins |> 
+  ggplot(aes(bill_length_mm*2, body_mass_g, color = island)) +
   geom_point(shape = 8, show.legend = FALSE) +
-  geom_spoke(aes(angle = cty, radius = cyl), show.legend = FALSE)  +
+  geom_spoke(aes(angle = flipper_length_mm/10, radius = year/100), 
+             show.legend = FALSE)  +
   coord_polar() + 
-  theme_void() + 
-  scale_color_brewer()
+  theme_void() 
   
 ```
 
